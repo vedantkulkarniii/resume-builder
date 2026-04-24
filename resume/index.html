@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Professional Resume Builder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="form-panel">
+      <h1>Resume Builder</h1>
+      <p class="muted">Build a clean ATS-friendly resume in real time.</p>
+
+      <form id="resumeForm" novalidate>
+        <section class="form-section">
+          <h2>Header</h2>
+          <div class="field"><label for="name">Name *</label><input id="name" name="name" type="text" required /></div>
+          <div class="field"><label for="title">Role / Title *</label><input id="title" name="title" type="text" required /></div>
+          <div class="field"><label for="email">Email *</label><input id="email" name="email" type="email" required /></div>
+          <div class="field"><label for="phone">Phone *</label><input id="phone" name="phone" type="text" required /></div>
+          <div class="field"><label for="location">Location *</label><input id="location" name="location" type="text" required /></div>
+          <div class="field"><label for="github">GitHub URL *</label><input id="github" name="github" type="url" placeholder="https://github.com/username" required /></div>
+        </section>
+
+        <section class="form-section">
+          <h2>Professional Summary</h2>
+          <div class="field">
+            <label for="summary">Summary *</label>
+            <textarea id="summary" name="summary" rows="5" required></textarea>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <h2>Education</h2>
+          <div class="field"><label for="degree">Degree *</label><input id="degree" name="degree" type="text" required /></div>
+          <div class="field"><label for="college">College *</label><input id="college" name="college" type="text" required /></div>
+          <div class="field"><label for="eduDuration">Duration *</label><input id="eduDuration" name="eduDuration" type="text" placeholder="2021 - 2025" required /></div>
+          <div class="field"><label for="coursework">Coursework (optional)</label><input id="coursework" name="coursework" type="text" /></div>
+        </section>
+
+        <section class="form-section">
+          <div class="inline-heading">
+            <h2>Key Projects</h2>
+            <button id="addProjectBtn" type="button" class="btn btn-secondary">Add Project</button>
+          </div>
+          <div id="projectsContainer"></div>
+        </section>
+
+        <section class="form-section">
+          <h2>Experience / Leadership</h2>
+          <div class="field"><label for="expTitle">Title *</label><input id="expTitle" name="expTitle" type="text" required /></div>
+          <div class="field"><label for="expOrg">Organization *</label><input id="expOrg" name="expOrg" type="text" required /></div>
+          <div class="field"><label for="expDuration">Duration *</label><input id="expDuration" name="expDuration" type="text" required /></div>
+          <div class="field">
+            <label for="expBullets">Bullet points (one per line) *</label>
+            <textarea id="expBullets" name="expBullets" rows="4" required></textarea>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <h2>Skills</h2>
+          <div class="field"><label for="languages">Languages *</label><input id="languages" name="languages" type="text" placeholder="JavaScript, Python, Java" required /></div>
+          <div class="field"><label for="frameworks">Frameworks *</label><input id="frameworks" name="frameworks" type="text" placeholder="React, Node.js, Flask" required /></div>
+          <div class="field"><label for="tools">Tools *</label><input id="tools" name="tools" type="text" placeholder="Git, Docker, AWS" required /></div>
+        </section>
+
+        <div class="actions">
+          <button id="downloadBtn" type="button" class="btn btn-primary">Download Resume</button>
+          <button id="clearBtn" type="button" class="btn btn-danger">Clear All</button>
+        </div>
+      </form>
+    </aside>
+
+    <main class="preview-panel">
+      <div class="paper" id="resumePreview">
+        <header class="resume-header">
+          <h1 id="previewName">YOUR NAME</h1>
+          <p id="previewTitle" class="job-title">Software Engineer</p>
+          <p id="previewContact" class="contact-line">email@example.com | +91-0000000000 | City, Country | github.com/username</p>
+        </header>
+
+        <section class="resume-section">
+          <h3>PROFESSIONAL SUMMARY</h3>
+          <hr />
+          <p id="previewSummary">Professional summary appears here.</p>
+        </section>
+
+        <section class="resume-section">
+          <h3>EDUCATION</h3>
+          <hr />
+          <div class="row">
+            <strong id="previewDegree">B.Tech - Computer Science</strong>
+            <span id="previewEduDuration">2021 - 2025</span>
+          </div>
+          <p id="previewCollege">College Name</p>
+          <p id="previewCoursework" class="muted-line"></p>
+        </section>
+
+        <section class="resume-section">
+          <h3>KEY PROJECTS</h3>
+          <hr />
+          <div id="previewProjects"></div>
+        </section>
+
+        <section class="resume-section">
+          <h3>EXPERIENCE / LEADERSHIP</h3>
+          <hr />
+          <div class="row">
+            <strong id="previewExpTitle">Position Title</strong>
+            <span id="previewExpDuration">2023 - Present</span>
+          </div>
+          <p id="previewExpOrg">Organization</p>
+          <ul id="previewExpBullets"></ul>
+        </section>
+
+        <section class="resume-section">
+          <h3>SKILLS</h3>
+          <hr />
+          <p><strong>Languages:</strong> <span id="previewLanguages"></span></p>
+          <p><strong>Frameworks:</strong> <span id="previewFrameworks"></span></p>
+          <p><strong>Tools:</strong> <span id="previewTools"></span></p>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
